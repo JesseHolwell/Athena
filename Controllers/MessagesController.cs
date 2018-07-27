@@ -46,6 +46,7 @@ namespace Microsoft.Bot.Sample.LuisBot
             }
             else if (message.Type == ActivityTypes.ConversationUpdate)
             {
+                /*
                 if (message.MembersAdded.Any(o => o.Id == message.Recipient.Id))
                 {
                     ConnectorClient connector = new ConnectorClient(new Uri(message.ServiceUrl));
@@ -55,6 +56,7 @@ namespace Microsoft.Bot.Sample.LuisBot
                     //Lets set up the exploration method
                     Conversation.SendAsync(message, () => new PromptButtonsDialog());
                 }
+                */
 
                 // Handle conversation state changes, like members being added and removed
                 // Use Activity.MembersAdded and Activity.MembersRemoved and Activity.Action for info
