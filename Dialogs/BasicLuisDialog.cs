@@ -22,6 +22,7 @@ namespace Microsoft.Bot.Sample.LuisBot
         [LuisIntent("None")]
         public async Task NoneIntent(IDialogContext context, LuisResult result)
         {
+            context.Call(new SimpleQnADialog(), MessageReceived);
             await this.ShowLuisResult(context, result);
         }
 
