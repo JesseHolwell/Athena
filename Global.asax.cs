@@ -9,7 +9,7 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Internals;
 using Microsoft.Bot.Connector;
 
-namespace SimpleEchoBot
+namespace Microsoft.Bot.Sample.LuisBot
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

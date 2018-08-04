@@ -180,13 +180,15 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Dialogs\BasicLuisDialog.cs" />
+    <Compile Include="Dialogs\LuisDialog.cs" />
     <Compile Include="Dialogs\PromptButtonsDialog.cs" />
+    <Compile Include="Dialogs\RootDialog.cs" />
     <Compile Include="Dialogs\SimpleQnADialog.cs" />
-    <Compile Include="Dialogs\SearchDialog.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

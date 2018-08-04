@@ -1,13 +1,9 @@
-using System;
 using System.Threading.Tasks;
 using System.Web.Http;
-
 using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.Dialogs;
 using System.Web.Http.Description;
 using System.Net.Http;
-using System.Diagnostics;
-using System.Linq;
 
 namespace Microsoft.Bot.Sample.LuisBot
 {
@@ -25,8 +21,8 @@ namespace Microsoft.Bot.Sample.LuisBot
             // check if activity is of type message
             if (activity.GetActivityType() == ActivityTypes.Message)
             {
-                //ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
-                await Conversation.SendAsync(activity, () => new PromptButtonsDialog());
+                //await Conversation.SendAsync(activity, () => new PromptButtonsDialog());
+                await Conversation.SendAsync(activity, () => new RootDialog());
                 //await Conversation.SendAsync(activity, () => new SimpleQnADialog());
                 //await Conversation.SendAsync(activity, () => new BasicLuisDialog());
             }
@@ -42,10 +38,10 @@ namespace Microsoft.Bot.Sample.LuisBot
             if (message.Type == ActivityTypes.DeleteUserData)
             {
                 // Implement user deletion here
-                // If we handle user deletion, return a real message
             }
             else if (message.Type == ActivityTypes.ConversationUpdate)
             {
+                //Greeting
                 /*
                 if (message.MembersAdded.Any(o => o.Id == message.Recipient.Id))
                 {
