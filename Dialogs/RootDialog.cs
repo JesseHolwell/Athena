@@ -18,7 +18,7 @@ namespace Microsoft.Bot.Sample.LuisBot
 
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
-            context.PostAsync("Root Dialog - Message received");
+            await context.PostAsync("Root Dialog - Message received");
             //var activity = await result as Activity;
             //await context.Forward(new LuisDialog(), this.ResumeAfterLuisDialog, activity, CancellationToken.None);
 

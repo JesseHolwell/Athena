@@ -24,7 +24,7 @@ namespace Microsoft.Bot.Sample.LuisBot
                 //await Conversation.SendAsync(activity, () => new PromptButtonsDialog());
                 await Conversation.SendAsync(activity, () => new RootDialog());
                 //await Conversation.SendAsync(activity, () => new SimpleQnADialog());
-                //await Conversation.SendAsync(activity, () => new BasicLuisDialog());
+                //await Conversation.SendAsync(activity, () => new LuisDialog());
             }
             else
             {
