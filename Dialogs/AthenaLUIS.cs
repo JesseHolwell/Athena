@@ -1,28 +1,33 @@
+using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.Luis;
+using Microsoft.Bot.Builder.Luis.Models;
 using System;
 using System.Configuration;
 using System.Threading.Tasks;
 
-using Microsoft.Bot.Builder.Dialogs;
-using Microsoft.Bot.Builder.Luis;
-using Microsoft.Bot.Builder.Luis.Models;
-
-namespace Microsoft.Bot.Sample.LuisBot
+namespace Athena
 {
-    // For more information about this template visit http://aka.ms/azurebots-csharp-luis
     [Serializable]
-    public class BasicLuisDialog : LuisDialog<object>
+    public class AthenaLUIS : LuisDialog<object>
     {
-        public BasicLuisDialog() : base(new LuisService(new LuisModelAttribute(
+        public AthenaLUIS() : base(new LuisService(new LuisModelAttribute(
             ConfigurationManager.AppSettings["LuisAppId"], 
-            ConfigurationManager.AppSettings["LuisAPIKey"], 
-            domain: ConfigurationManager.AppSettings["LuisAPIHostName"])))
+            ConfigurationManager.AppSettings["LuisAPIKey"]
+            //, domain: ConfigurationManager.AppSettings["LuisAPIHostName"]
+            )))
         {
         }
 
         [LuisIntent("None")]
         public async Task NoneIntent(IDialogContext context, LuisResult result)
         {
-            await this.ShowLuisResult(context, result);
+            //context.Call(new AthenaQA(), MessageReceived);
+            //await this.ShowLuisResult(context, result);
+
+            await context.PostAsync($"Luis Dialog - Found {result.Intents[0].Intent}. Query: {result.Query}");
+
+            // No intent found, then try asking QnA Knowlegebase
+            context.Call(new AthenaQA(), ResumeAfterOptionDialog);
         }
 
         // Go to https://luis.ai and create a new intent, then train/publish your luis app.
@@ -49,6 +54,12 @@ namespace Microsoft.Bot.Sample.LuisBot
         {
             await context.PostAsync($"You have reached {result.Intents[0].Intent}. You said: {result.Query}");
             context.Wait(MessageReceived);
+        }
+
+        //This function is called after each dialog process is done
+        private async Task ResumeAfterOptionDialog(IDialogContext context, IAwaitable<object> result)
+        {
+            //await context.PostAsync("Luis Dialog - After dialog");            
         }
     }
 }
