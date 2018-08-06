@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -6,10 +5,8 @@ using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.Dialogs;
 using System.Web.Http.Description;
 using System.Net.Http;
-using System.Diagnostics;
-using System.Linq;
 
-namespace Microsoft.Bot.Sample.LuisBot
+namespace Athena
 {
     [BotAuthentication]
     public class MessagesController : ApiController
@@ -23,12 +20,9 @@ namespace Microsoft.Bot.Sample.LuisBot
         public virtual async Task<HttpResponseMessage> Post([FromBody] Activity activity)
         {
             // check if activity is of type message
-            if (activity.GetActivityType() == ActivityTypes.Message)
+            if (activity != null && activity.GetActivityType() == ActivityTypes.Message)
             {
-                //ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
-                await Conversation.SendAsync(activity, () => new PromptButtonsDialog());
-                //await Conversation.SendAsync(activity, () => new SimpleQnADialog());
-                //await Conversation.SendAsync(activity, () => new BasicLuisDialog());
+                await Conversation.SendAsync(activity, () => new EchoDialog());
             }
             else
             {
@@ -46,17 +40,17 @@ namespace Microsoft.Bot.Sample.LuisBot
             }
             else if (message.Type == ActivityTypes.ConversationUpdate)
             {
-                /*
-                if (message.MembersAdded.Any(o => o.Id == message.Recipient.Id))
-                {
-                    ConnectorClient connector = new ConnectorClient(new Uri(message.ServiceUrl));
-                    Activity reply = message.CreateReply("Hello, My name is Athena and I will be your virtual assistant today.");
-                    connector.Conversations.ReplyToActivityAsync(reply);
+               /*
+               if (message.MembersAdded.Any(o => o.Id == message.Recipient.Id))
+               {
+                   ConnectorClient connector = new ConnectorClient(new Uri(message.ServiceUrl));
+                   Activity reply = message.CreateReply("Hello, My name is Athena and I will be your virtual assistant today.");
+                   connector.Conversations.ReplyToActivityAsync(reply);
 
-                    //Lets set up the exploration method
-                    Conversation.SendAsync(message, () => new PromptButtonsDialog());
-                }
-                */
+                   //Lets set up the exploration method
+                   Conversation.SendAsync(message, () => new PromptButtonsDialog());
+               }
+               */
 
                 // Handle conversation state changes, like members being added and removed
                 // Use Activity.MembersAdded and Activity.MembersRemoved and Activity.Action for info
