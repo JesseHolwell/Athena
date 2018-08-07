@@ -18,13 +18,14 @@ namespace Athena
         {
         }
 
+        [LuisIntent("")]
         [LuisIntent("None")]
         public async Task NoneIntent(IDialogContext context, LuisResult result)
         {
             //context.Call(new AthenaQA(), MessageReceived);
             //await this.ShowLuisResult(context, result);
 
-            await context.PostAsync($"Luis Dialog - Found {result.Intents[0].Intent}. Query: {result.Query}");
+            await context.PostAsync($"You have reached {result.Intents[0].Intent}.");
 
             // No intent found, then try asking QnA Knowlegebase
             context.Call(new AthenaQA(), ResumeAfterOptionDialog);
@@ -38,21 +39,22 @@ namespace Athena
             await this.ShowLuisResult(context, result);
         }
 
-        [LuisIntent("Cancel")]
-        public async Task CancelIntent(IDialogContext context, LuisResult result)
-        {
-            await this.ShowLuisResult(context, result);
-        }
-
         [LuisIntent("Help")]
         public async Task HelpIntent(IDialogContext context, LuisResult result)
         {
             await this.ShowLuisResult(context, result);
         }
 
+        [LuisIntent("Email")]
+        public async Task EmailIntent(IDialogContext context, LuisResult result)
+        {
+            await context.PostAsync($"You have reached the email intent. From here we can fire off an email with what you have just said: " + result.Query);
+            await this.ShowLuisResult(context, result);
+        }
+
         private async Task ShowLuisResult(IDialogContext context, LuisResult result) 
         {
-            await context.PostAsync($"You have reached {result.Intents[0].Intent}. You said: {result.Query}");
+            await context.PostAsync($"You have reached {result.Intents[0].Intent}.");
             context.Wait(MessageReceived);
         }
 
