@@ -1,5 +1,7 @@
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
+using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -39,17 +41,12 @@ namespace Athena
             }
             else if (message.Type == ActivityTypes.ConversationUpdate)
             {
-               /*
-               if (message.MembersAdded.Any(o => o.Id == message.Recipient.Id))
-               {
-                   ConnectorClient connector = new ConnectorClient(new Uri(message.ServiceUrl));
-                   Activity reply = message.CreateReply("Hello, My name is Athena and I will be your virtual assistant today.");
-                   connector.Conversations.ReplyToActivityAsync(reply);
-
-                   //Lets set up the exploration method
-                   Conversation.SendAsync(message, () => new PromptButtonsDialog());
-               }
-               */
+                if (message.MembersAdded.Any(o => o.Id == message.Recipient.Id))
+                {
+                    ConnectorClient connector = new ConnectorClient(new Uri(message.ServiceUrl));
+                    Activity reply = message.CreateReply("I am your service provider virtual assistant, How can I help you today? ");
+                    connector.Conversations.ReplyToActivityAsync(reply);
+                }
 
                 // Handle conversation state changes, like members being added and removed
                 // Use Activity.MembersAdded and Activity.MembersRemoved and Activity.Action for info

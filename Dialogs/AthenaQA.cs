@@ -10,7 +10,7 @@ namespace Athena
         public AthenaQA() : base(new QnAMakerService(new QnAMakerAttribute(
             ConfigurationManager.AppSettings["QnAKey"],
             ConfigurationManager.AppSettings["QnAId"],
-            "Sorry but I was unable to find an answer",
+            "Hmm, I wasn't able to find an article about that. Can you try asking in a different way?",
             0.3, 1, "https://athena-qa.azurewebsites.net/qnamaker"
             )))
         {
